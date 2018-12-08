@@ -1,0 +1,67 @@
+                                       Esp32针脚
+
+
+
+35 34 39 36 脚 只能作为输入下拉脚，置零，不能置高。当外输入高电位（连接3.3v和以上管脚）输入时可以读出状态。
+#include <Arduino.h>
+byte shuru[] = {35, 34, 39, 36, 32};
+void setup()
+{
+  Serial.begin(9600);
+  for (int i = 0; i < sizeof(shuru); i++)
+  {
+    pinMode(shuru[i], INPUT_PULLDOWN);
+  }
+}
+void loop()
+{
+  for (int i = 0; i < sizeof(shuru); i++)
+  {
+    if (digitalRead(shuru[i]) == 1)
+    {
+      Serial.println(shuru[i]);
+    }
+  }
+  delay(2000);
+}
+
+
+
+
+
+
+
+
+
+
+管脚9 10 11 只能作为输入上拉，当外部使管脚接地时可以读出状态
+
+#include <Arduino.h>
+byte pin[] = {9, 10, 11};
+void setup()
+{
+  Serial.begin(9600);
+  for (int i = 0; i < sizeof(pin); i++)
+  {
+    pinMode(pin[i], INPUT_PULLUP);
+  }
+}
+void loop()
+{
+  for (int i = 0; i < sizeof(pin); i++)
+  {
+    if (digitalRead(pin[i]) == 0)
+    {
+      Serial.print(pin[i]);
+      Serial.println("=0");
+    }
+  }
+  delay(2000);
+}
+
+
+
+
+
+
+
